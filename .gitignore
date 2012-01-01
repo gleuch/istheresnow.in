@@ -1,0 +1,8 @@
+.DS_Store
+._*
+config.yml
+database.yml
+weibo.yml
+twitter.yml
+sinatra/
+.certs/

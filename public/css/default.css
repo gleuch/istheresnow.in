@@ -1,0 +1,280 @@
+/* the @gleuch default setup - updated 2011-06-07 */
+html, body, header, hgroup, nav, article, section, details, aside, footer, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {margin: 0; padding: 0; border: 0; outline: 0; font-size: 1.0em; vertical-align: baseline; background: transparent; font-weight: 400;}
+header, hgroup, nav, article, section, details, aside, footer {display: block;}
+html, body {height: 100%;}
+body {line-height: 1.0em; font-size: 62.5%; margin: 0; padding: 0;}
+dl dt {font-weight: bold;}
+ol, ul {list-style: none;}
+blockquote, q {quotes: none;}
+blockquote:before, blockquote:after, q:before, q:after {content: ''; content: none;}
+:focus {outline: 0;}
+ins {text-decoration: none;}
+del {text-decoration: line-through;}
+table {border-collapse: collapse; border-spacing: 0; font-size: 1.0em;}
+thead, tbody, tr, th, td {font-size: 1.0em; line-height: 1.0em;}
+body, h1, h2, h3, h4, h5, h6, input, select, textarea {font-family: Arial, Helvetica, Verdana, sans-serif; line-height: 1.2em;}
+h1, h2, h3, h4, h5, h6, input, select, textarea, p, blockquote, li, dt, dd {letter-spacing: 0;}
+p, blockquote, li, dt, dd {font-size: 1.0em; font-family: Arial, Helvetica, Verdana, sans-serif; color: #222; line-height: 1.25em;}
+code {display: block; font-size: 1.0em; color: #404040; line-height: 1.25em;}
+blockquote p, blockquote blockquote, li li, p code {font-size: 1.0em;}
+dt {font-weight: bold;}
+
+
+
+/* overrides ....... */
+a {text-decoration: none;}
+
+
+
+/* forms ....... */
+
+form h2 {font-size: 2.0em; font-weight: 600; padding: 0 0 8px 0;}
+fieldset {position: relative; padding: 8px 0 8px 150px;}
+fieldset legend {position: absolute; top: 6px; left: 0; width: 132px; font-size: 1.3em; font-weight: 400; color: #323232;}
+fieldset.line legend {top: 8px;}
+fieldset label {float: none; width: auto; font-size: 1.3em; padding-right: 6px; color: #323232;}
+fieldset.buttons {padding-left: 0; text-align: right;}
+fieldset.buttons .button {font-size: 1.5em;}
+fieldset p {padding: 8px 0 0 0; margin: 0; color: #777;}
+fieldset input[type=text], fieldset input[type=password], fieldset textarea, fieldset input[type=email] {width: 300px; margin: 0; padding: 4px 3px; font-size: 1.3em; line-height: 1.0em; border: 1px solid #aaa; background: #f9f9f9; color: #626262; font-family: Arial, Helvetica, Verdana, sans-serif; border-radius: 2px; box-shadow: 0 1px 1px rgba(0,0,0,.06);}
+fieldset input[type=text]:focus, fieldset input[type=password]:focus, fieldset textarea:focus, fieldset input[type=email]:focus {background: #fdfdfd; color: #323232; border-color: #888; box-shadow: 0 1px 1px rgba(0,0,0,.12);}
+fieldset textarea {line-height: 1.33em;}
+fieldset select {font-size: 1.3em; padding: 4px 3px !important; margin: 0; line-height: 1.0em; font-family: Arial, Helvetica, Verdana, sans-serif !important; color: #636363;}
+
+
+form.simple legend {text-align: right;}
+form.simple fieldset {padding-top: 0;}
+form.simple fieldset.buttons {padding-left: 150px}
+form.simple fieldset input[type=text], form.simple fieldset input[type=password], form.simple fieldset textarea, form.simple fieldset input[type=email] {width: 272px;}
+
+form hr {height: 1px; margin: 8px 0; padding: 0; background-color: #d0d0d0; border: none;}
+
+.sidebar_col form.simple {padding: 4px 0 0 0;}
+.sidebar_col form.simple fieldset {padding-left: 0;}
+.sidebar_col form.simple fieldset legend {position: relative; top: auto; left: auto; text-align: left; padding: 0 0 4px 0;}
+.sidebar_col form.simple fieldset input[type=text], .sidebar_col form.simple fieldset input[type=password], .sidebar_col form.simple fieldset textarea, .sidebar_col form.simple fieldset input[type=email] {width: 217px;}
+
+
+/* layouts ....... */
+.c:after {content: "."; clear: both; display: block; height: 0; visibility: hidden;}
+.left {clear: none; float: left;}
+.right {clear: none; float: right;}
+.rel {position: relative;}
+.abs {position: absolute;}
+.ta_c {text-align: center;}
+.ta_l {text-align: left;}
+.ta_r {text-align: right;}
+
+.container {width: 900px; margin: 0 auto;}
+body.short .container {width: 600px;}
+body.midwidth .container {width: 675px;}
+
+
+
+
+/* visual look */
+body {background: #f0f0f0;}
+.f300 {font-weight: 300;}
+.f400 {font-weight: 400;}
+.f600 {font-weight: 600;}
+.f700 {font-weight: 700;}
+
+h1, h2, h3, h4, h5, h6 {text-shadow: 0 1px 1px rgba(255,255,255,.32);}
+h1 {}
+h2 {}
+h3 {}
+h4 {}
+h5 {}
+h6 {}
+p {}
+em {}
+strong {}
+b {}
+i {}
+
+a {color: #424242;}
+a:focus, a:hover {color: #727272;}
+p a {text-decoration: underline;}
+
+.100x100, .100x100 img {width: 100px; height: 100px; overflow: hidden;}
+.50x50, .50x50 img {width: 50px; height: 50px; overflow: hidden;}
+.48x48, .48x48 img {width: 48px; height: 48px; overflow: hidden;}
+.32x32, .32x32 img {width: 32px; height: 32px; overflow: hidden;}
+.24x24, .24x24 img {width: 24px; height: 24px; overflow: hidden;}
+
+ul.nav {display: block; margin: 0; padding: 0;}
+ul.nav li {clear: none; float: left; display: block; width: auto; margin: 0; padding: 0 8px; list-style: none;}
+ul.nav li:first-child {padding-left: 0;}
+ul.nav li:last-child {padding-right: 0;}
+ul.nav li a {font-size: 1.6em; line-height: 1.0em; font-weight: 300; color: #7d7d7d;}
+ul.nav li a:hover, #header nav ul.nav li a:focus {color: #333333;}
+ul.nav li.selected a {font-weight: 600; color: #333333;}
+
+
+ul li.flow {width: 280px; padding: 0 20px 20px 0;}
+ul li.flow .bubble {margin: 0 10px 0 0; padding: 10px; min-height: 25px; background: #fff; border: 1px solid #cccccc; border-radius: 8px; z-index: 20; box-shadow: 0 1px 2px rgba(0,0,0,.04);}
+ul li.flow .bubble .message {font-size: 1.8em; line-height: 1.38em; font-weight: 300; color: #4c4c4c;}
+ul li.flow .bubble .message .stats {font-weight: 300;}
+ul li.flow .bubble .message .stats span {display: inline-block; width: 80px; text-align: right; padding: 0 2px 0 0; font-weight: 300;}
+ul li.flow .bubble .mark {}
+ul li.flow .bubble.m_brs .mark {}
+ul li.flow .bubble .buttons {}
+ul li.flow .bubble .buttons {}
+ul li.flow .info {margin: -10px 0 0 10px; padding: 10px 0 0 0; min-height: 25px; background: #f0f0f0; border: 1px solid #cccccc; border-radius: 8px; z-index: 19; box-shadow: 0 1px 2px rgba(0,0,0,.04);}
+ul li.flow .info .area {padding: 10px 10px; border-top: 1px solid #ccc;}
+ul li.flow .info .area:first-child {border-top: none;}
+ul li.flow .info .area .avatar {width: 48px; height: 48px; padding: 0 12px 0 0;}
+ul li.flow .info .area .content {}
+ul li.flow .info .area .content h2 {padding: 0 0 6px 0; font-size: 2.2em; line-height: 1.0em; color: #131313; font-weight: 600;}
+ul li.flow .info .area .content h2 a {color: #131313;}
+ul li.flow .info .area .content h2 a:focus, ul li.flow .info .area .content h2 a:hover, ul li.flow.onclick:hover .info .area .content h2 a {color: #727272;}
+ul li.flow .info .area .content h6 {font-size: 1.3em !important; line-height: 1.0em; color: #959590; font-weight: 300;}
+ul li.flow .info .area .buttons {}
+ul li.flow .info .area .service_icon {position: absolute; z-index: 0; bottom: 10px; right: 10px; width: 32px; height: 32px; background: url(../images/icons/services.png) 0 100px no-repeat;}
+ul li.flow.onclick:hover .info .area .service_icon {opacity: .72;}
+ul li.flow.twitter .info .area .service_icon {background-position: 0 0;}
+ul li.flow.weibo .info .area .service_icon {background-position: -32px 0;}
+ul li.flow.facebook .info .area .service_icon {background-position: -64px 0;}
+
+ul li.flow.onclick:hover {cursor: pointer;}
+/*ul li.flow.onclick:hover .bubble {z-index: 19;}
+ul li.flow.onclick:hover .info {z-index: 20; position: relative;}*/
+
+
+.form_errors {background: #fb4343; margin: 0 0 24px 0; padding: 8px 12px; border: 1px solid #fb4343; border-radius: 3px; box-shadow: 0 1px 1px rgba(0,0,0,.06);}
+.form_errors_header {font-weight: 600; font-size: 1.5em; line-height: 1.33em; color: #fff;}
+.form_errors ul {padding: 4px 0 0 0; list-style: disc;}
+.form_errors ul li {font-size: 1.3em; line-height: 1.25em; color: #fff; padding: 2px 0 3px 0; margin: 0 0 0 32px;}
+.form_errors ul li span {color: #fff !important;}
+
+#flashes {margin: 0 0 24px 0;}
+.flash {padding: 8px 12px; margin: 8px 0 0 0; background: #dbdbdb; border: 1px solid #dbdbdb; border-radius: 3px; box-shadow: 0 1px 1px rgba(0,0,0,.06); font-size: 1.3em; line-height: 1.25em; color: #2b2b2b; font-weight: 600;}
+#flashes .flash:first-child {margin: 0;}
+.flash.flash_success {background: #77a443; border-color: #77a443; color: #fff;}
+.flash.flash_error {background: #fb4343; border-color: #fb4343; color: #fff;}
+.flash.flash_warning {background: #fbdf43; border-color: #fbdf43;}
+.flash.flash_info {}
+.flash.flash_notice {background: #fff; border-color: #fff;}
+.flash.flash_alert {background: #2b2b2b; border-color: #2b2b2b; color: #fff;}
+
+.sidebar {}
+.sidebar .sidebar_col {width: 300px; padding: 0;}
+.sidebar .content_col {width: 580px; padding: 0 20px 0 0;}
+.sidebar .content_col.right {padding: 0 0 0 20px;}
+
+.sidebar.bdr_l, .sidebar.bdr_r {background: url(../images/border.png) 298px 0 repeat-y;}
+.sidebar.bdr_r {background-position: 600px 0;}
+.sidebar.bdr_l .sidebar_col, .sidebar.bdr_r .sidebar_col {width: 280px; padding: 0 20px 0 0;}
+.sidebar.bdr_r .sidebar_col {padding: 0 0 0 20px;}
+
+body.midwidth .sidebar .content_col {width: 430px; padding: 0 20px 0 0;}
+body.midwidth .sidebar .sidebar_col {width: 225px; padding: 0;}
+body.short .sidebar .content_col {width: 430px; padding: 0 20px 0 0;}
+body.short .sidebar .sidebar_col {width: 150px; padding: 0;}
+
+.sidebar .sidebar_col .box {padding: 0 0 22px 0;}
+.sidebar .sidebar_col .box h1 {font-size: 2.4em; font-weight: 600; padding: 0 0 6px 0; text-transform: lowercase;}
+.sidebar .sidebar_col .box h2 {font-size: 2.0em; font-weight: 600; padding: 0 0 6px 0; text-transform: lowercase;}
+.sidebar .sidebar_col .box h3 {font-size: 1.8em; font-weight: 600; padding: 0 0 6px 0; text-transform: lowercase;}
+.sidebar .sidebar_col .box p {font-size: 1.4em; padding: 0 0 8px 0;}
+
+
+.button {display: inline-block; padding: .5em .8em; line-height: 1.0em; font-weight: 600; color: #222; background: #d0d0d0; border: 1px solid transparent; border-radius: 8px; box-shadow: 0 1px 1px rgba(0,0,0, .32); text-shadow: 0 1px 1px rgba(255,255,255,.32); text-decoration: none;}
+.button:focus, .button:hover {color: #000; background: #bbb; cursor: pointer;}
+.button.primary {color: #e0e0e0; background: #333; text-shadow: 0 1px 1px rgba(0,0,0,.18);}
+.button.primary:focus, .button.primary:hover {color: #fff; background: #555;}
+.button.large {font-size: 1.5em; padding: .55em .87em;}
+
+
+#header .container {padding: 20px 0; border-bottom: 8px solid #000000;}
+#header #logo {text-transform:lowercase; font-size: 4.8em; line-height: 1.0em;}
+#header #logo a {color: #2b2b2b; font-size: 600; text-shadow: none;}
+#header #logo a:hover, #header #logo a:focus {color: #666;}
+
+#header nav {padding: 14px 0 0 26px;}
+#header nav ul.nav li {padding: 0 10px;}
+#header nav ul.nav li:first-child {padding-left: 0;}
+#header nav ul.nav li:last-child {padding-right: 0;}
+#header nav ul.nav li a {font-size: 2.8em; text-transform: lowercase;}
+#header nav ul.nav li.admin a {color: #ff0000; font-weight: 400;}
+
+
+#content_area {padding: 20px 0;}
+#user_privs {position: absolute; top: -20px; right: 0; font-size: 1.2em; color: #7b7b7b;}
+
+#admin_nav {margin: 0 0 12px 0;}
+#admin_nav ul.nav li a {font-size: 2.4em; text-transform: lowercase;}
+#admin_nav ul.nav li.selected a {font-weight: 600; color: #2b2b2b;}
+
+
+#heading {margin: 8px 0 20px 0;}
+#heading h1 {padding: 0 0 4px 0; font-size: 4.2em; font-weight: 600; line-height: 1.1em; color: #2b2b2b; text-transform: lowercase; vertical-align: baseline;}
+#heading h2 {padding: 0 0 4px 0; font-size: 2.4em; font-weight: 300; line-height: 1.1em; color: #7d7d7d; text-transform: lowercase; vertical-align: baseline;}
+
+
+#footer {margin: 24px 0 0 0; padding: 0 0 24px 0;}
+#footer .container {padding: 12px 0 0 0; border-top: 1px solid #cccccc;}
+#footer p, #footer ul li {font-size: 1.1em; color: #727272;}
+#footer p a, #footer ul li a {color: #727272; font-size: 1.0em; text-decoration: none;}
+#footer p a:hover, #footer p a:focus, #footer ul li a:hover, #footer ul li a:focus {color: #323232;}
+#footer ul li.selected a {color: #323232; font-weight: 600;}
+
+
+table {width: 100%; margin: 0 0 8px 0;}
+table tr td, table tr th {font-size: 1.2em; text-align: left; padding: 4px 0;}
+table tr th {font-weight: 600; border-bottom: 1px solid #ccc;}
+table tr td.b, table tr td.b a {font-weight: 600;}
+
+
+
+.accounts_list {}
+.accounts_list h1 {font-size: 2.4em; line-height: 1.0em; color: #131313; font-weight: 600; text-transform: lowercase;}
+.accounts_list ul {padding: 12px 0 0 0;}
+.accounts_list ul li {width: 280px; padding: 0 0 20px 0;}
+.sidebar .accounts_list ul li {width: 270px;}
+
+
+ul#feature_unit li.flow {width: 100%; padding: 0 0 20px 0;}
+
+
+ul.services li.service {padding: 2px 0 2px 10px; font-size: 1.3em;}
+ul.services li.service.icon a {position: relative; display: inline-block; padding: 8px 0 11px 44px; font-weight: 600; height: 1.0em;}
+ul.services li.service.icon a span {position: absolute; display: inline-block; top: 0; left: 0; width: 32px; height: 32px; background: url(../images/icons/services.png) 0 100px no-repeat;}
+ul.services li.service.icon a:hover span {opacity: .72;}
+ul.services li.service.icon.twitter a span {background-position: 0 0;}
+ul.services li.service.icon.weibo a span {background-position: -32px 0;}
+ul.services li.service.icon.facebook a span {background-position: -64px 0;}
+
+
+
+.stats {padding: 0 0 12px 0;}
+.stats h2 {padding: 0 0 8px 0; font-size: 2.4em; font-weight: 600; text-transform: lowercase;}
+.stats table {margin-left: 8px;}
+.stats table tr th, .stats table tr td {font-size: 1.3em;}
+.stats table tbody tr td {border-top: 1px solid #ccc; padding: 8px;}
+.stats table thead tr th {padding: 8px;}
+.stats table tbody tr:first-child td {border: none;}
+.stats table tbody tr:hover td {background: #e9e9e9;}
+.stats table td.b {width: 150px;}
+
+
+/* Index */
+.accounts_index ul li.flow:nth-child(2n) {padding-right: 0;}
+
+
+/* Audits */
+
+.audits_index #heading ul.nav {padding: 0 0 4px 0;}
+.audits_index #heading ul.nav li {font-size: 1.3em;}
+
+
+/* Users */
+.user_new .sidebar .sidebar_col .box {padding-bottom: 12px;}
+.user_new .sidebar .sidebar_col .box p {font-size: 1.2em;}
+
+.user_session_new form.simple.login fieldset input[type=text], .user_session_new form.simple.login fieldset input[type=password] {width: 250px;}
+.user_session_new form.simple.login fieldset#remember_me, .sidebar_col form.simple.login fieldset#remember_me {clear: none; padding-top: 12px; float: left; width: 160px;}
+.user_session_new form.simple.login fieldset.buttons, .sidebar_col form.simple.login fieldset.buttons {clear: none; float: right; padding: 0 20px 0 0; width: 90px;}
+.user_session_new form.simple.login fieldset.buttons a.left, .sidebar_col form.simple.login fieldset.buttons a.left {display: none;}
+.sidebar_col form.simple.login fieldset#remember_me {padding-top: 10px; width: 135px;}
+.sidebar_col form.simple.login fieldset.buttons {padding: 0; width: 85px;}

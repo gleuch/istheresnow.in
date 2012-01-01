@@ -1,0 +1,72 @@
+!!!
+%html{:lang => (session[:locale] || 'en')}
+  %head
+    %meta{:charset => "utf-8"}
+    %title= page_title
+    %meta{:name => "description", :content => @meta[:description]}
+    %meta{:name => "author", :content => t.template.meta.author}
+    %meta{:name => "robots", :content => @meta[:robots]}
+    = yield_content(:meta) if content_for?(:meta)
+
+    %link{:rel => 'shortcut icon', :href => '/favicon.ico'}
+
+    <!--[if lt IE 9]>
+    %script{:src => "http://html5shim.googlecode.com/svn/trunk/html5.js"}
+    <![endif]-->
+
+    %link{:href => "/css/default.css", :rel => "stylesheet"}
+    = yield_content(:css) if content_for?(:css)
+
+    %script{:type => "text/javascript", :src => "/js/jquery-1.7.1.min.js"}
+    %script{:type => "text/javascript", :src => "/js/site.js"}
+
+    = yield_content(:js) if content_for?(:js)
+
+  %body{:class => @body_class.join(' ')}
+    = yield_content(:page_top) if content_for?(:page_top)
+
+    - # HEADER!!!!
+    %header#header
+      .container.c
+        %h1#logo.left
+          %a{:href => "/", :title => t.name}= t.name
+
+    #content_area
+      .container.rel
+        = yield_content(:navbar) if content_for?(:navbar)
+
+        - if content_for?(:feature)
+          = yield_content :feature
+
+        - if content_for?(:heading)
+          %header#heading
+            = yield_content(:heading)
+
+        - # BODY!!!!
+        #content
+          - if flashes?
+            #flashes.c
+              = show_flashes
+
+          - if content_for?(:answer)
+            #answer= yield_content(:answer)
+
+          = yield
+
+        = yield_content(:bottom) if content_for?(:bottom)
+
+    %footer#footer
+      .container.c
+        %p.left= t.template.footer.credits( l(Time.now, '%Y') )
+
+        .right
+          - # One day, this will include more languages!
+          - if APP_LOCALES.size > 1
+            %ul.nav.locales
+              - APP_LOCALES.each do |k,v|
+                %li{:class => (k.to_s == session[:locale] ? 'selected' : '')}
+                  %a{:href => "?locale=#{k.to_s}"}= v
+
+
+    = haml :'layouts/_page_bottom'
+    = yield_content(:page_bottom) if content_for?(:page_bottom)

@@ -1,0 +1,13 @@
+development: &local
+
+  cookie_secret:  "CHANGE THIS STRING!"
+  password_salt:  "CHANGE THIS STRING!"
+
+  ganalytics_id:  ''
+
+staging:
+  <<: *local
+
+
+production:
+  <<: *local

@@ -1,0 +1,9 @@
+- # LIST OUT THE ANSWER RESPONSE (YES/NO/MAYBE?)
+
+- unless @place.blank?
+  %h2#place_name= @place.name
+  %h1#answer= t.defaults(@place.weatheris_snow_event ? :yes : :no) rescue t.defaults.maybe
+
+- else
+  %h2#place_name= t.places.unknown
+  %h1#answer= t.defaults.maybe

@@ -1,0 +1,4 @@
+development:
+  adapter:  mysql2
+  host:     localhost
+  database: istheresnowin_dev
