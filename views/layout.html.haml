@@ -22,6 +22,15 @@
     %script{:type => "text/javascript", :src => "http://maps.googleapis.com/maps/api/js?sensor=false"}
     %script{:type => "text/javascript", :src => "/js/jquery-1.7.1.min.js"}
     %script{:type => "text/javascript", :src => "/js/site.js"}
+    %script{:type => "text/javascript"}
+      - unless prod?
+        var _gaq = {push:function(a) {console.log('GA: '+ a.toString());}};
+
+      var _gaq = _gaq || [], _gaq_last_pageview = location.href;
+      _gaq.push(['_setAccount', '#{configatron.ganalytics_id}']);
+      _gaq.push(['_setDomainName', '#{request.host}']);
+      _gaq.push(['_setAllowLinker', true]);
+      _gaq.push(['_trackPageview']);
 
     = yield_content(:js) if content_for?(:js)
 

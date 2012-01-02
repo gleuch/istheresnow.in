@@ -4,16 +4,6 @@
   i18n.places = {unknown : '#{t.places.unknown}'};
   i18n.defaults = {yes : '#{t.defaults.y}', no : '#{t.defaults.n}', maybe : '#{t.defaults.maybe}', dunno : '#{t.defaults.dunno}'};
 
-
-  - unless prod?
-    var _gaq = {push:function(a) {console.log('GA: '+ a.toString());}};
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', '#{configatron.ganalytics_id}']);
-  _gaq.push(['_setDomainName', '#{request.host}']);
-  _gaq.push(['_setAllowLinker', true]);
-  _gaq.push(['_trackPageview']);
-
   - if prod?
     (function() {
     var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;

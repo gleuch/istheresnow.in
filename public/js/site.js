@@ -49,6 +49,7 @@ var istheresnowin = {
     if (history.pushState && !history.initState) {
       history.initState = true;
       history.replaceState(r, window.title, location.href);
+      istheresnowin.pageview();
     }
   },
   
@@ -62,6 +63,15 @@ var istheresnowin = {
     istheresnowin._current_place = s;
     istheresnowin.html(s);
     if (istheresnowin._map) istheresnowin.map_move();
+    
+    istheresnowin.pageview();
+  },
+  
+  pageview : function() {
+    if (_gaq_last_pageview != location.href) {
+      _gaq.push(['_trackPageview', location.href.replace(location.origin, '')]);
+      _gaq_last_pageview = location.href;
+    }
   },
 
   map_init : function(lat, lng) {
@@ -165,7 +175,10 @@ var istheresnowin = {
       if (istheresnowin._map) istheresnowin.map_move();
       istheresnowin.html(r);
 
-      if (r && r.place && r.url && history.pushState) history.pushState(r, window.title, r.url);
+      if (r && r.place && r.url && history.pushState) {
+        history.pushState(r, window.title, r.url);
+        istheresnowin.pageview();
+      }
     } else {
       istheresnowin.search_error(r,s,p);
     }
