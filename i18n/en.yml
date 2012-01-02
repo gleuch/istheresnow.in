@@ -2,9 +2,9 @@ name:           "Is There Snow In...?"
 title_name:     "IsThereSnow.In"
 
 defaults:
-  y:              "yes!"
-  n:              "no."
-  maybe:          "maybe?"
+  y:              "yes"
+  n:              "no"
+  maybe:          "maybe"
   dunno:          "dunno?"
   and:            and
   or:             or

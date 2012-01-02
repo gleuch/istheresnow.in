@@ -25,6 +25,10 @@ jQuery(document).ready(function() {
   } else {
     $('#options_current_loc').hide();
   }
+  
+  $('#options_search a').click(istheresnowin.search_toggle);
+  $('#options_map a').click(istheresnowin.map_toggle);
+  $('#search form').submit(istheresnowin.search_form);
 
   if (history.pushState) {
     $(window).bind('popstate', istheresnowin.popstate);
@@ -33,9 +37,12 @@ jQuery(document).ready(function() {
 
 });
 
+
 var istheresnowin = {
   query : null,
   _place : null,
+  _current_place : null,
+  _map : null,
   
   default_place : function(r) {
     istheresnowin._place = r;
@@ -46,18 +53,91 @@ var istheresnowin = {
   },
   
   popstate : function(e) {
-    if (!history.ready || !e.originalEvent.state) return;
-    if (e.originalEvent.state.place) istheresnowin.title(e.originalEvent.state.place);
-    istheresnowin.html(e.originalEvent.state);
+    if (!history.ready) return;
+
+    var s = e.originalEvent.state;
+    if (!s) s = istheresnowin._current_place;
+    if (!s) s = istheresnowin._place;
+
+    istheresnowin._current_place = s;
+    istheresnowin.html(s);
+    if (istheresnowin._map) istheresnowin.map_move();
+  },
+
+  map_init : function(lat, lng) {
+    var geo = istheresnowin.map_coords(lat, lng),
+        opts = {
+          zoom: 10,
+          disableDefaultUI: true,
+          styles : [{stylers: [{ saturation: -100 }]}],
+          center: new google.maps.LatLng(geo.latitude, geo.longitude),
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+    istheresnowin._map = new google.maps.Map(document.getElementById('map'), opts);
+  },
+
+  map_coords : function(lat, lng) {
+    if (istheresnowin._current_place && istheresnowin._current_place.geo) {
+      if (!lat) lat = istheresnowin._current_place.geo.latitude;
+      if (!lng) lng = istheresnowin._current_place.geo.longitude;
+    } else if (istheresnowin._place && istheresnowin._place.geo) {
+      if (!lat) lat = istheresnowin._place.geo.latitude;
+      if (!lng) lng = istheresnowin._place.geo.longitude;
+    } else {
+      if (!lat) lat = 40.7143;
+      if (!lng) lng = -74.006;
+    }
+
+    return {latitude:lat, longitude:lng};
+  },
+
+  map_toggle : function() {
+    if ($('#map').is(':hidden') || !$('#map').is(':visible')) {
+      if (!istheresnowin._map) istheresnowin.map_init();
+      $('#map').show();
+    } else {
+      $('#map').hide();
+    }
+  },
+  
+  map_move : function(lat, lng) {
+    var geo = istheresnowin.map_coords(lat, lng);
+
+    if (istheresnowin._map) {
+      istheresnowin._map.setCenter(new google.maps.LatLng(geo.latitude, geo.longitude));
+    } else {
+      istheresnowin.map_init(geo.latitude, geo.longitude);
+    }
+  },
+
+  search_toggle : function() {
+    if ($('#search').is(':hidden') || !$('#search').is(':visible')) {
+      $('#answer, #loading').hide();
+      $('#search').show();
+    } else {
+      $('#search').hide();
+      $('#answer').show();
+    }
+  },
+
+  search_form : function(e) {
+    var q = $('#search_field').val();
+    if (!q || q == '' || q.length < 2) return false;
+    istheresnowin.search(q)
+    return false;
   },
 
   search : function(q) {
+    if (!!istheresnowin._searching) return;
+
     if (this.query == q) {
       istheresnowin.search_complete();
       return;
     }
 
     this.query = q;
+    istheresnowin._searching = true;
 
     $.ajax('/index.json', {
       data : {q : q},
@@ -70,23 +150,29 @@ var istheresnowin = {
 
   search_before_send : function() {
     $('#loading').show();
-    $('#answer').hide();
+    $('#answer, #search').hide();
   },
 
   search_complete : function() {
+    istheresnowin._searching = false;
     $('#loading, #search').hide();
     $('#answer').show();
   },
 
   search_success : function(r,s,p) {
     if (s == 'success') {
+      istheresnowin._current_place = r;
+      if (istheresnowin._map) istheresnowin.map_move();
       istheresnowin.html(r);
+
+      if (r && r.place && r.url && history.pushState) history.pushState(r, window.title, r.url);
     } else {
       istheresnowin.search_error(r,s,p);
     }
   },
   
   search_error : function(r,s,p) {
+    istheresnowin._current_place = null;
     istheresnowin.html()
   },
 
@@ -100,7 +186,6 @@ var istheresnowin = {
       }
 
       istheresnowin.title(r.place);
-      if (r.url && history.pushState) history.pushState(r, window.title, r.url);
     } else {
       $('#place_name').html( i18n.places.unknown );
       $('#place_answer').html( i18n.defaults.dunno );
@@ -135,4 +220,4 @@ var istheresnowin = {
     $('#answer').show();
   }
   
-}
+};

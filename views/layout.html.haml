@@ -19,6 +19,7 @@
     %link{:href => "/css/default.css", :rel => "stylesheet"}
     = yield_content(:css) if content_for?(:css)
 
+    %script{:type => "text/javascript", :src => "http://maps.googleapis.com/maps/api/js?sensor=false"}
     %script{:type => "text/javascript", :src => "/js/jquery-1.7.1.min.js"}
     %script{:type => "text/javascript", :src => "/js/site.js"}
 
@@ -34,6 +35,8 @@
           %a{:href => "/", :title => t.name}= t.name
         %aside#options
           %ul.nav
+            %li#options_map
+              %a{:href => 'javascript:;', :title => 'View Map'} [m]
             %li#options_current_loc
               %a{:href => 'javascript:;', :title => 'Current Location'} [x]
             %li#options_search
@@ -47,14 +50,26 @@
         - if content_for?(:heading)
           %header#heading= yield_content(:heading)
 
-        - if content_for?(:answer)
-          %aside#loading{:style => 'display:none'}= t.defaults.loading
+        - if content_for?(:answer)  
           %section#answer= yield_content(:answer)
+          %aside#search
+            %form{:action => '/', :method => 'get'}
+              %fieldset
+                %legend.print= t.defaults.search
+                - v = @place.search.query rescue nil
+                - v ||= @place.name rescue nil
+                - v ||= params[:q]
+                %input#search_field{:type => 'text', :name => 'q', :value => v}
+
+          %aside#loading{:style => 'display:none'}= t.defaults.loading
 
         = yield
 
         - if content_for?(:footnotes)
           %footer#footnotes= yield_content(:footnotes)
+
+    %aside#map
+      - # Google map goes here
 
     %footer#footer
       .container.c

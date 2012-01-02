@@ -131,11 +131,17 @@ table tr td.b, table tr td.b a {font-weight: 600;}
 #content {padding: 100px 0;}
 #content .container {width: 550px; margin: 0 auto;}
 
-#content #answer {padding: 100px 0 75px 0; text-align: center;}
+#content #answer {padding: 100px 0 75px 0; text-align: center; background: rgba(255,255,255,.25);}
 #content #answer h2#place_name {padding: 0; margin: 0; font-weight: 400; font-size: 2.4em; line-height: 1.25em; color: #aaa;}
 #content #answer h1#place_answer {padding: 0; margin: 0; font-size: 12.0em; line-height: 1.0em; text-transform: uppercase;}
 
-#content #loading {text-indent: 6px; height: 16px; margin: 81px 0 0 0; padding: 46px 0 20px 0; background: url(../images/loading.gif?) center 0 no-repeat; font-size: 1.6em; line-height: 1.0em; text-align: center; color: #999; text-transform: lowercase;}
+#content #loading {text-indent: 6px; height: 16px; margin: 81px 0 0 0; padding: 46px 0 20px 0; background: rgba(255,255,255,.25) url(../images/loading.gif?) center 0 no-repeat; font-size: 1.6em; line-height: 1.0em; text-align: center; color: #999; text-transform: lowercase;}
+
+#map {position: absolute; display: none; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; z-index: -1; opacity: .25;}
+#search {display: none; padding: 100px 0; background: rgba(255,255,255,.25); text-align: center;}
+#search fieldset {margin: 0; padding: 0;}
+#search #search_field {font-size: 3.2em; width: 520px; margin: 0; padding: 4px 6px;}
+
 
 #footer {position: absolute; bottom: 10px; left: 20px; right: 20px; z-index: 10;}
 #footer .container {height: 38px; opacity: .33;}
