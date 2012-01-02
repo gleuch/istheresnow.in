@@ -5,6 +5,7 @@ gem "rack",                     "1.3.6"
 
 
 # CONFIGURATION & APIS
+gem "crack",                    "0.3.1"
 gem "json",                     "1.4.6"
 gem "configatron",              "2.8.0"
 

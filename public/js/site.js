@@ -84,7 +84,7 @@ var istheresnowin = {
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
-    istheresnowin._map = new google.maps.Map(document.getElementById('map'), opts);
+    istheresnowin._map = new google.maps.Map(document.getElementById('map_area'), opts);
   },
 
   map_coords : function(lat, lng) {
@@ -192,8 +192,14 @@ var istheresnowin = {
   html : function(r) {
     if (r && r.place != '') {
       $('#place_name').html( r.place );
-      if (r.weather) {
-        // show weather here
+      if (r.weather && r.weather.status) {
+        if (r.weather.status.snow) {
+          $('#place_answer').html( i18n.defaults.yes );
+        } else if (r.weather.status.sleet) {
+          $('#place_answer').html( i18n.defaults.maybe );
+        } else {
+          $('#place_answer').html( i18n.defaults.no );
+        }
       } else {
         $('#place_answer').html( i18n.defaults.dunno );
       }

@@ -78,18 +78,23 @@
           %footer#footnotes= yield_content(:footnotes)
 
     %aside#map
-      - # Google map goes here
+      #map_area
+        - # Google map goes here
 
     %footer#footer
       .container.c
         %aside#credits= t.template.footer.credits( l(Time.now, '%Y') )
-        %aside#languages
-          - # One day, this will include more languages!
-          - if APP_LOCALES.size > 1
-            %ul.nav.locales
-              - APP_LOCALES.each do |k,v|
-                %li{:class => (k.to_s == session[:locale] ? 'selected' : '')}
-                  %a{:href => "?locale=#{k.to_s}"}= v
+        %aside#powered
+          = t.template.footer.powered
+
+        - if false
+          %aside#powered
+            - # One day, this will include more languages!
+            - if APP_LOCALES.size > 1
+              %ul.nav.locales
+                - APP_LOCALES.each do |k,v|
+                  %li{:class => (k.to_s == session[:locale] ? 'selected' : '')}
+                    %a{:href => "?locale=#{k.to_s}"}= v
 
 
     = haml :'layouts/_page_bottom'

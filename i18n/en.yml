@@ -39,6 +39,7 @@ template:
     about:      About
   footer:
     credits:    Built by <a href="http://gleu.ch">Greg Leuch</a> &ndash; &copy; %1
+    powered:    Using <a href="http://developer.yahoo.com/weather/">Yahoo! Weather</a> and <a href="http://code.google.com/apis/maps/index.html">Google Maps</a>.
 
 
 # --- PLACES ----------------------------------------------

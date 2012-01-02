@@ -4,7 +4,7 @@
   %h2#place_name= @place.name
   - unless @place.weather.blank?
     - status = t.defaults.y if @place.weather.snow?
-    - status = t.defaults.maybe if @place.weather.sleet?
+    - status ||= t.defaults.maybe if @place.weather.sleet?
     - status ||= t.defaults.n
 
   - status ||= t.defaults.dunno

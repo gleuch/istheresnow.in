@@ -16,7 +16,7 @@ DEBUG     ||= false
 
 
 # REQUIRE MODULES/GEMS
-%w{yaml configatron active_record mysql2}.each{|r| require r}
+%w{yaml crack json configatron active_record mysql2}.each{|r| require r}
 
 
 # READ CONFIG

@@ -1,9 +1,9 @@
 development: &local
 
-  cookie_secret:  "CHANGE THIS STRING!"
-  password_salt:  "CHANGE THIS STRING!"
+  cookie_secret:    "CHANGE THIS STRING!"
 
-  ganalytics_id:  ''
+  ganalytics_id:    ""
+  yapps_id:         ""
 
 staging:
   <<: *local
