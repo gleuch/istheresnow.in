@@ -1,3 +1,5 @@
 - content_for :answer do
   = haml :'places/_answer'
 
+- content_for :page_bottom do
+  %script{:type => 'text/javascript'} istheresnowin.locate();

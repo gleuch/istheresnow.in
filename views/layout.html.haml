@@ -6,6 +6,8 @@
     %meta{:name => "description", :content => @meta[:description]}
     %meta{:name => "author", :content => t.template.meta.author}
     %meta{:name => "robots", :content => @meta[:robots]}
+    - unless @canonical_url.blank?
+      %meta{:name => 'canonical', :content => @canonical_url.gsub(/\s/m, '_')}
     = yield_content(:meta) if content_for?(:meta)
 
     %link{:rel => 'shortcut icon', :href => '/favicon.ico'}
@@ -28,38 +30,36 @@
     - # HEADER!!!!
     %header#header
       .container.c
-        %h1#logo.left
+        %h1#logo.print
           %a{:href => "/", :title => t.name}= t.name
+        %aside#options
+          %ul.nav
+            %li#options_current_loc
+              %a{:href => 'javascript:;', :title => 'Current Location'} [x]
+            %li#options_search
+              %a{:href => 'javascript:;', :title => 'Search'} [s]
 
-    #content_area
-      .container.rel
-        = yield_content(:navbar) if content_for?(:navbar)
-
+    %article#content
+      .container.c
         - if content_for?(:feature)
-          = yield_content :feature
+          %section#feature= yield_content(:feature)
 
         - if content_for?(:heading)
-          %header#heading
-            = yield_content(:heading)
+          %header#heading= yield_content(:heading)
 
-        - # BODY!!!!
-        #content
-          - if flashes?
-            #flashes.c
-              = show_flashes
+        - if content_for?(:answer)
+          %aside#loading{:style => 'display:none'}= t.defaults.loading
+          %section#answer= yield_content(:answer)
 
-          - if content_for?(:answer)
-            #answer= yield_content(:answer)
+        = yield
 
-          = yield
-
-        = yield_content(:bottom) if content_for?(:bottom)
+        - if content_for?(:footnotes)
+          %footer#footnotes= yield_content(:footnotes)
 
     %footer#footer
       .container.c
-        %p.left= t.template.footer.credits( l(Time.now, '%Y') )
-
-        .right
+        %aside#credits= t.template.footer.credits( l(Time.now, '%Y') )
+        %aside#languages
           - # One day, this will include more languages!
           - if APP_LOCALES.size > 1
             %ul.nav.locales
@@ -69,4 +69,5 @@
 
 
     = haml :'layouts/_page_bottom'
+
     = yield_content(:page_bottom) if content_for?(:page_bottom)

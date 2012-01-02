@@ -7,7 +7,6 @@ helpers do
   def scrape?; Sinatra::Application.environment.to_s == 'scraper'; end
   def prod?; Sinatra::Application.environment.to_s == 'production'; end
 
-
   def flashes?;
     !FLASH_TYPES.reject{|v| flash[v].blank?}.blank?
   end
@@ -26,52 +25,65 @@ helpers do
 
 
   def find_place_and_fetch_weather(q=nil)
-    q ||= params[:id] # sniff it
-    unless q.blank?
-      begin
-        puts "\n\n"
-        @place = lookup_place_by_search(q)
-        @place ||= lookup_place_by_place(q)
-        @place ||= lookup_place_via_service(q)
+    q ||= params[:q] # sniff it
+    
+    if q.match(GEO_REGEXP)
+      q = q.strip rescue nil
+    else
+      q = q.strip.underscore.humanize.downcase rescue nil
+    end
 
-        puts "@place: #{@place.inspect}"
+    return if q.blank? || ['index'].include?(q) || q.length < 2
 
-        # Add to place search terms
-        PlaceSearch.create(:place_id => @place.id, :query => q.downcase, :active => true) rescue nil unless @place.blank?
-        lookup_weather_for_place(@place) if !@place.blank? && !@place.weather.recent?
-      rescue => err
-        puts "Error (#{q}): #{err}"
-        nil
-      end
+    begin
+      # Format up geo lat/lng
+      q = q.split(',').map{|g| format_geo_coord(g) }.join(',') if q.match(GEO_REGEXP)
+
+      @place = lookup_place_by_search(q)
+      @place ||= lookup_place_by_place(q)
+      @place ||= lookup_place_via_service(q) unless @skip_geoloc_service
+
+      puts "@place: #{@place.inspect}"
+
+      # Add to place search terms
+      PlaceSearch.create(:place_id => (!@place.blank? ? @place.id : nil), :query => q, :active => true) rescue nil
+    rescue => err
+      Audit.error(:loggable => Place, :message => "Unable to find place (#{q}): #{err}", :script => __FILE__)
+    end
+      
+    begin
+      lookup_weather_for_place(@place) if !@place.blank? && !@place.weather.blank? && !@place.weather.recent?
+    rescue => err
+      Audit.error(:loggable => Weather, :message => "Unable to find weather for place (#{q}): #{err}", :script => __FILE__)
     end
   end
 
   def lookup_place_by_search(q)
-    PlaceSearch.where(:query => q).first.place rescue nil
+    place = PlaceSearch.where("LOWER(query)=?", q).first
+    @skip_service = true unless place.blank? # Don't let us keep looking up a bad item
+    place.place rescue nil
   end
 
   def lookup_place_by_place(q)
-    geo_rx = /^([\-\+\d\.\'\"\s]+)(\,)([\-\+\d\.\'\"\s]+)$/
-
     # Lookup via geo latitude and longitude
-    if q.match(geo_rx)
+    if q.match(GEO_REGEXP)
       puts "Searching Place (Geo): #{q}"
-      lat = q.gsub(geo_rx, '$1'), long = q.gsub(geo_rx, '$3')
-      place = Place.available.near(lat, long)
+      lat = q.gsub(GEO_REGEXP, '$1'), lng = q.gsub(GEO_REGEXP, '$3')
+      place = Place.available.near(lat, lng)
 
     # Lookup via postal code
     elsif q.match(/^\d+$/)
       puts "Searching Place (Postal Code): #{q}"
-      place = Place.available.where("LOWER(postal_code)=?", q.downcase)
+      place = Place.available.where("LOWER(postal_code)=?", q)
     
     # Lookup more complex term
     else
       puts "Searching Place (All): #{q.underscore.humanize}"
-      geo = q.underscore.humanize.split(',')
+      geo = q.split(',')
       location, region = geo.pop, geo.pop
 
-      place = Place.available.where("LOWER(postal_code)=? OR LOWER(city)=? OR LOWER(nickname)=?", location.downcase, location.downcase, location.downcase)
-      place = place.where("LOWER(suburb)=? OR LOWER(state)=? OR LOWER(country_code)=?", region.downcase, region.downcase, region.downcase) unless region.blank?
+      place = Place.available.where("LOWER(postal_code)=? OR LOWER(city)=? OR LOWER(nickname)=?", location, location, location)
+      place = place.where("LOWER(suburb)=? OR LOWER(state)=? OR LOWER(country_code)=?", region, region, region) unless region.blank?
     end
 
     place.first rescue nil
@@ -83,10 +95,16 @@ helpers do
     puts "Fetching Place: #{q}"
 
     # Fetch from Google
-    uri = 'http://maps.googleapis.com/maps/api/geocode/json?sensor=true'
-    uri << "&address=#{CGI::escape(q)}"
+    uri = "http://maps.googleapis.com/maps/api/geocode/json?sensor=#{!params[:sensor].blank? ? 'true' : 'false'}"
+
+    if q.match(/^([\-\+\d\.\'\"\s]+)(\,)([\-\+\d\.\'\"\s]+)$/)
+      uri << "&latlng=#{CGI::escape(q)}"
+    else
+      uri << "&address=#{CGI::escape(q)}"
+    end
+
     info = Net::HTTP.get URI.parse(uri) rescue nil
-    return false if info.blank?
+    return nil if info.blank?
 
     # Parse JSON
     json = JSON.parse(info) rescue nil
@@ -100,8 +118,8 @@ helpers do
 
         # Match up types accordingly...
         result['address_components'].each do |addr|
-          opts[:city]           = addr['long_name'] if addr['types'].include?('sublocality')
-          opts[:suburb]         = addr['long_name'] if addr['types'].include?('locality')
+          opts[:city]           = addr['long_name'] if addr['types'].include?('locality')
+          opts[:suburb]         = addr['long_name'] if addr['types'].include?('sublocality')
           opts[:state]          = addr['short_name'] if addr['types'].include?('administrative_area_level_1')
           opts[:region]         = addr['short_name'] if addr['types'].include?('administrative_area_level_2')
           opts[:postal_code]    = addr['short_name'] if addr['types'].include?('postal_code')
@@ -112,8 +130,8 @@ helpers do
         opts[:full_name] = result['formatted_address']
 
         unless result['geometry']['location'].blank?
-          opts[:geo_latitude] = result['geometry']['location']['lat']
-          opts[:geo_longitude] = result['geometry']['location']['lng']
+          opts[:geo_latitude] = format_geo_coord(result['geometry']['location']['lat'])
+          opts[:geo_longitude] = format_geo_coord(result['geometry']['location']['lng'])
         end
 
         begin
@@ -125,7 +143,7 @@ helpers do
       end
     end
 
-    places.pop rescue nil
+    places.shift rescue nil
   end
 
   def lookup_weather_for_place(p=nil)
@@ -207,6 +225,52 @@ helpers do
 
     str
   end
+
+
+  def render_place
+    find_place_and_fetch_weather
+
+    @canonical_url = "/#{@place.search.query}" rescue nil
+    @canonical_url ||= "/#{@place.geo_latitude},#{@place.geo_longitude}" rescue nil
+
+    respond_to do |format|
+      format.html {
+        @title = @place.name rescue t.places.unknown
+        haml :'places/show'
+      }
+      format.json { place_json }
+      format.xml { place_xml }
+      format.rss { place_rss }
+    end
+  end
+
+
+  def place_json(p=nil)
+    p ||= @place
+
+    unless @place.blank?
+      obj = {:place => @place.name, :url => @canonical_url, :geo => {:latitude => @place.geo_latitude, :longitude => @place.geo_longitude}}
+      unless @place.weather.blank?
+        status = {:snow => @place.weather.snow?, :sleet => @place.weather.sleet?, :rain => @place.weather.rain?}
+        obj[:weather] = {:name => t.weathers.noun[@place.weather.name.to_sym], :event => t.weathers.verb[@place.weather.name.to_sym], :status => status}
+      else
+        obj[:error] = true
+        obj[:message] = t.weathers.unknown
+      end
+    else
+      obj = {:place => false, :error => true, :message => t.places.unknown}
+    end
+
+    obj.to_json(:callback => params[:callback])
+  end
+
+  def place_xml
+  end
+
+  def place_rss
+  end
+
+  def format_geo_coord(g); sprintf("%.4f", g.to_f).to_f; end
 
 
   class Array

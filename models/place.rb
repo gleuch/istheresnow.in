@@ -5,14 +5,16 @@ class Place < ActiveRecord::Base
   has_one :weather, :class_name => 'Weather', :order => 'recorded_at DESC'
   
   has_many :searches, :class_name => 'PlaceSearch'
+  has_one :search, :class_name => 'PlaceSearch', :order => 'created_at ASC'
 
 
   scope :available, where(:active => true, :available => true)
   scope :active, where(:active => true)
   scope :focus_city, where(:focus => true)
   scope :is_snowing, joins(:weathers).where("weathers.is_snow_event=1")
-  scope :near, lambda {|lat,long|
+  scope :near, lambda {|lat,lng|
     # RADIUS CHECK
+    where(:id => -1)
   }
 
   default_scope where(:active => true, :available => true)

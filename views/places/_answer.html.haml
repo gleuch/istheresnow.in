@@ -2,8 +2,17 @@
 
 - unless @place.blank?
   %h2#place_name= @place.name
-  %h1#answer= t.defaults(@place.weatheris_snow_event ? :yes : :no) rescue t.defaults.maybe
+  - unless @place.weather.blank?
+    - status = t.defaults.y if @place.weather.snow?
+    - status = t.defaults.maybe if @place.weather.sleet?
+    - status ||= t.defaults.n
+
+  - status ||= t.defaults.dunno
+  %h1#place_answer= status
+
+  %script{:type => 'text/javascript'}
+    istheresnowin.default_place(#{place_json(@place)});
 
 - else
   %h2#place_name= t.places.unknown
-  %h1#answer= t.defaults.maybe
+  %h1#place_answer= t.defaults.dunno

@@ -13,7 +13,7 @@ configure do
   SKIP_AUTHLOGIC = false
 
   require "./config.rb"
-  %w{haml sinatra/respond_to sinatra/content_for sinatra/r18n sinatra/flash}.each{|r| require r}
+  %w{haml sinatra/content_for sinatra/respond_to sinatra/r18n sinatra/flash}.each{|r| require r}
 
   # REQUIRE DATABASE MODELS
   Dir.glob("#{APP_ROOT}/models/*.rb").each{|r| require r}
@@ -23,6 +23,28 @@ configure do
   files.each{|r| require r}
 
   Sinatra::Application.register Sinatra::RespondTo
+
+  # Ugly override!
+  module Sinatra
+    module RespondTo
+      module Helpers
+        def format(val=nil)
+          unless val.nil?
+            mime_type = ::Sinatra::Base.mime_type(val)
+            @_format = val.to_sym
+            if mime_type.nil?
+              request.path_info << ".#{val}"
+              mime_type = 'text/html'
+              @_format = 'html'
+            end
+            response['Content-Type'] ? response['Content-Type'].sub!(/^[^;]+/, mime_type) : content_type(@_format)
+          end
+          @_format
+        end
+      end
+    end
+  end
+
 
   FLASH_TYPES = [:alert, :info, :warning, :notice, :success, :error]
   use Rack::Session::Cookie, :key => 'istheresnowin_rack_key', :secret => configatron.cookie_secret, :path => '/', :expire_after => 21600
@@ -38,6 +60,8 @@ configure do
   Sinatra::Application.register Sinatra::R18n
   set :default_locale, 'en'
   set :translations,   './i18n'
+
+  GEO_REGEXP = /^([\-\+\d\.\'\"\s]+)(\,)([\-\+\d\.\'\"\s]+)$/
 
 end
 

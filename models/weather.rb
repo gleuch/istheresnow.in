@@ -15,7 +15,16 @@ class Weather < ActiveRecord::Base
   
   
   def recent?; self.recored_at >= (Time.now - CACHE_TIMEFRAME); end
+  def name; self.event_name; end
+  
+  def is_snow?; end
 
+  def snow?; ['snow'].include?(self.event_name); end
+  def sleet?; ['sleet','ice'].include?(self.event_name); end
+  def rain?; ['rain','tstorm','hurricane'].include?(self.event_name); end
+  def windy?; ['windy','tornado'].include?(self.event_name); end
+  def cloudy?; ['cloudy'].include?(self.event_name); end
+  def sunny?; ['sunny'].include?(self.event_name); end
 
 
 protected

@@ -1,33 +1,16 @@
-# Location by name
-get "/:id" do
-  pass if params[:id].blank?
+# Location by params
+get %r{/(index)?} do
+  pass if params[:q].blank? && params.keys.length < 1
+  params[:q] ||= params.keys.shift
 
-  find_place_and_fetch_weather
-
-  respond_to do |format|
-    format.html {
-      @title = @place.name rescue t.places.unknown
-      @canonical_url = "/#{@place.name}" unless @place.blank?
-      haml :'places/show'
-    }
-  end
+  render_place
 end
 
-get "/" do
-  pass unless params.keys.length > 0
+# Location by name
+get "/:q" do
+  pass if params[:q].blank?
 
-  params[:id] = params.keys.pop
-  puts "??? #{params[:id]}"
-
-  find_place_and_fetch_weather
-
-  respond_to do |format|
-    format.html {
-      @title = @place.name rescue t.places.unknown
-      @canonical_url = "/#{@place.name}" unless @place.blank?
-      haml :'places/index'
-    }
-  end
+  render_place
 end
 
 get "/" do

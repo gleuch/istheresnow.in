@@ -2,18 +2,20 @@ name:           "Is There Snow In...?"
 title_name:     "IsThereSnow.In"
 
 defaults:
-  yes:            yes
-  no:             no
-  maybe:          maybe
-  dunno:          dunno?
+  y:              "yes!"
+  n:              "no."
+  maybe:          "maybe?"
+  dunno:          "dunno?"
   and:            and
   or:             or
   but:            but
-  choose:         Choose&hellip;
+  choose:         "Choose&hellip;"
   new:            New
   edit:           Edit
   delete:         Remove
+  loading:        "Loading&hellip;"
   comma:          ', '
+  unknown:        unknown
   error_for:
     create:       "There was an error creating this %1:"
     update:       "There was an error updating this %1:"
@@ -43,6 +45,26 @@ template:
 places:
   unknown:      Unknown City
 
+weathers:
+  unknown:      No weather data.
+
+  noun:
+    snow:         snow
+    sleet:        sleet
+    rain:         rain
+    sunny:        sun
+    foggy:        fog
+    cloudy:       cloudy
+    windy:        wind
+
+  verb:
+    snow:         snowing
+    sleet:        sleeting
+    rain:         raining
+    sunny:        sunny
+    foggy:        foggy
+    cloudy:       cloudy
+    windy:        windy
 
 
 # --- ERRORS ----------------------------------------------
