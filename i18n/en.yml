@@ -40,7 +40,7 @@ template:
     description:  "Is there snow in your area?"
 
   search:
-    placeholder:  Search&hellip;
+    placeholder:  "Search..."
 
   navigation:
     about:      About
