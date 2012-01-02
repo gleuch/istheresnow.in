@@ -18,6 +18,8 @@ helpers do
     
     @title = nil
     @body_class = []
+
+    # flash.now[:info] = t.template.alert.high_traffic
   end
 
   def page_title

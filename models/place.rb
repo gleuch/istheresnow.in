@@ -1,5 +1,6 @@
 class Place < ActiveRecord::Base
 
+  PROXIMITY = 0.01
 
   has_many :weathers
   has_one :weather, :class_name => 'Weather', :order => 'recorded_at DESC'
@@ -13,8 +14,9 @@ class Place < ActiveRecord::Base
   scope :focus_city, where(:focus => true)
   scope :is_snowing, joins(:weathers).where("weathers.is_snow_event=1")
   scope :near, lambda {|lat,lng|
-    # RADIUS CHECK
-    where(:id => -1)
+    select("#{Place::table_name}.*, 3956 * 2 * ASIN(SQRT(POWER(SIN((#{lat} - #{Place::table_name}.geo_latitude)*pi()/180 / 2), 2) +COS(#{lat} * pi()/180) * COS(#{Place::table_name}.geo_latitude * pi()/180) *POWER(SIN((#{lng} - #{Place::table_name}.geo_longitude) * pi()/180 / 2), 2)) ) as distance")
+      .order('distance asc').limit(5)
+      .where("geo_latitude >= ? AND geo_latitude <= ? AND geo_longitude >= ? AND geo_longitude <= ?", (lat.to_f-PROXIMITY.to_f), (lat.to_f+PROXIMITY.to_f), (lng.to_f-PROXIMITY.to_f), (lng.to_f+PROXIMITY.to_f))
   }
 
   default_scope where(:active => true, :available => true)

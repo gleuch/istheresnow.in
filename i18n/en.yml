@@ -16,6 +16,7 @@ defaults:
   loading:        "Loading&hellip;"
   comma:          ', '
   unknown:        unknown
+  search:         Search
   error_for:
     create:       "There was an error creating this %1:"
     update:       "There was an error updating this %1:"
@@ -31,12 +32,19 @@ models:
 
 # --- TEMPLATE TEXT ---------------------------------------
 template:
+  alert:
+    high_traffic:   "Due to high traffic and rate limiting, some results may be out of date."
+
   meta:
     author:       "IsThereSnow.In?, by Greg Leuch"
-    description:  ""
+    description:  "Is there snow in your area?"
+
+  search:
+    placeholder:  Search&hellip;
 
   navigation:
     about:      About
+
   footer:
     credits:    Built by <a href="http://gleu.ch">Greg Leuch</a> &ndash; &copy; %1
     powered:    Using <a href="http://developer.yahoo.com/weather/">Yahoo! Weather</a> and <a href="http://code.google.com/apis/maps/index.html">Google Maps</a>.

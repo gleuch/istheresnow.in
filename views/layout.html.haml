@@ -42,6 +42,11 @@
       .container.c
         %h1#logo.print
           %a{:href => "/", :title => t.name}= t.name
+
+        - if flashes?
+          %aside#flashes
+            = show_flashes
+
         %aside#options
           %ul.nav
             %li#options_map
@@ -68,7 +73,7 @@
                 - v = @place.search.query rescue nil
                 - v ||= @place.name rescue nil
                 - v ||= params[:q]
-                %input#search_field{:type => 'text', :name => 'q', :value => v}
+                %input#search_field{:type => 'text', :name => 'q', :'data-value' => v, :placeholder => t.template.search.placeholder}
 
           %aside#loading{:style => 'display:none'}= t.defaults.loading
 

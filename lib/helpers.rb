@@ -70,7 +70,7 @@ helpers do
     # Lookup via geo latitude and longitude
     if q.match(GEO_REGEXP)
       puts "Searching Place (Geo): #{q}"
-      lat = q.gsub(GEO_REGEXP, '$1'), lng = q.gsub(GEO_REGEXP, '$3')
+      lat, lng = q.gsub(GEO_REGEXP, '\1'), q.gsub(GEO_REGEXP, '\3')
       place = Place.available.near(lat, lng)
 
     # Lookup via postal code
