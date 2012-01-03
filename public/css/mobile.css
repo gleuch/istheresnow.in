@@ -5,12 +5,17 @@ body {max-width: 480px; margin: 0 auto;}
 #header #flashes {padding-bottom: .6em;}
 #header #flashes .flash {text-align: center;}
 
-#content {padding: 10em 0;}
+#content {padding: 5em 0;}
+#content #answer {padding: 5em 0 0 0;}
+#content #answer h2#place_name {font-size: 1.6em;}
+#content #answer h1#place_answer {font-size: 7.0em;}
 
-#search #search_field {width: 90%; /*padding: .333em .5em .25em .5em;*/}
+#content #loading {margin: 0 8em;}
+#search {padding: 1.5em 1em; margin: 5em 0 0 0;}
+#search #search_field {width: 90%;}
 
-#footer {position: fixed; bottom: 1em; left: 1em; right: 1em; color: #aaa; font-size: 1.0em;}
+#footer {position: fixed; bottom: 1em; left: 1em; right: 1em; color: #aaa; font-size: .5em;}
 #footer a {color: #aaa; text-decoration: underline;}
 #footer a:focus, #footer a:hover {color: #666;}
 #footer #credits {clear: none; float: left;}
-#footer #powered {clear: none; float: right;} 
+#footer #powered {clear: none; float: right; display: none;} 

@@ -139,7 +139,7 @@ var istheresnowin = {
   },
 
   search_form : function(e) {
-    var q = $('#search_field').val();
+    var q = $('#search_field').blur().val();
     if (!q || q == '' || q.length < 2) return false;
     istheresnowin.search(q)
     return false;
