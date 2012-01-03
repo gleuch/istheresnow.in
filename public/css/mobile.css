@@ -1,21 +1,21 @@
 body {max-width: 480px; margin: 0 auto;}
 
 #header {position: absolute; top: 1em; left: 1em; right: 1em;}
-#header #options {clear: none; float: right;}
+#header #options {clear: none; float: right; zoom: 75%;}
 #header #flashes {padding-bottom: .6em;}
 #header #flashes .flash {text-align: center;}
 
 #content {padding: 5em 0;}
 #content #answer {padding: 5em 0 0 0;}
 #content #answer h2#place_name {font-size: 1.6em;}
-#content #answer h1#place_answer {font-size: 7.0em;}
+#content #answer h1#place_answer {font-size: 6.4em;}
 
 #content #loading {margin: 0 8em;}
 #search {padding: 1.5em 1em; margin: 5em 0 0 0;}
-#search #search_field {width: 90%;}
+#search #search_field {width: 90%; font-size: 2.4em; padding-bottom: .2em;}
 
 #footer {position: fixed; bottom: 1em; left: 1em; right: 1em; color: #aaa; font-size: .5em;}
 #footer a {color: #aaa; text-decoration: underline;}
 #footer a:focus, #footer a:hover {color: #666;}
 #footer #credits {clear: none; float: left;}
-#footer #powered {clear: none; float: right; display: none;} 
+#footer #powered {clear: none; float: right; display: none;}

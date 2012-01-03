@@ -1,12 +1,12 @@
 GIT
-  remote: https://github.com/gleuch/sinatra-content-for.git
+  remote: git://github.com/gleuch/sinatra-content-for.git
   revision: fa1a84729f9bb3e42d92516aaf020557b805ff37
   specs:
     sinatra-content-for (0.2)
       sinatra
 
 GIT
-  remote: https://github.com/simon/sinatra-respond_to.git
+  remote: git://github.com/simon/sinatra-respond_to.git
   revision: 3fb7e0471ab852a5b382adfc1d32a6ce53f83767
   specs:
     sinatra-respond_to (0.8.0)

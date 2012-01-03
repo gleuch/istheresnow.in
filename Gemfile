@@ -17,8 +17,8 @@ gem "sinatra-activerecord",     "0.1.3"
 # DISPLAY
 gem "haml",                     "3.1.2"
 gem "sinatra-flash",            "0.3.0"
-gem "sinatra-respond_to",       "0.8.0",    :git => "https://github.com/simon/sinatra-respond_to.git"
-gem "sinatra-content-for",      "0.2",      :git => "https://github.com/gleuch/sinatra-content-for.git"
+gem "sinatra-respond_to",       "0.8.0",    :git => "git://github.com/simon/sinatra-respond_to.git"
+gem "sinatra-content-for",      "0.2",      :git => "git://github.com/gleuch/sinatra-content-for.git"
 gem "sinatra-r18n",             "0.4.13"
 
 
