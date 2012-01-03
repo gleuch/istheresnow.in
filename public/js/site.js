@@ -107,12 +107,12 @@ var istheresnowin = {
 
   map_toggle : function() {
     if ($('#map').is(':hidden') || !$('#map').is(':visible')) {
+      $('#map').show();
       if (localStorage) localStorage.show_map = true;
       if (!istheresnowin._map) istheresnowin.map_init();
-      $('#map').show();
-    } else {
-      if (localStorage) localStorage.removeItem('show_map');
+    } else {  
       $('#map').hide();
+      if (localStorage) localStorage.removeItem('show_map');
     }
   },
   
