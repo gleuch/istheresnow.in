@@ -32,9 +32,10 @@ models:
 
 # --- TEMPLATE TEXT ---------------------------------------
 template:
-  view_map:           View Map
-  current_location:   Current Location
-  search:             Search
+  options:
+    view_map:           View Map
+    current_location:   Current Location
+    search:             Search
 
   alert:
     high_traffic:     "Due to high traffic and rate limiting, some results may be out of date."

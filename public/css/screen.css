@@ -1,0 +1,24 @@
+#header {position: fixed; top: 10px; left: 20px; right: 20px;}
+#header .container {height: 50px;}
+#header #options {clear: none; float: right; margin: -.3em -.7em 0 0;}
+#header #flashes {clear: none; float: left; max-width: 450px;}
+
+#heading {margin: .8em 0 2em 0;}
+#heading h1 {padding: 0 0 .4em 0; font-size: 4.2em; font-weight: 600; line-height: 1.1em; color: #2b2b2b; text-transform: lowercase; vertical-align: baseline;}
+#heading h2 {padding: 0 0 .4em 0; font-size: 2.4em; font-weight: 300; line-height: 1.1em; color: #7d7d7d; text-transform: lowercase; vertical-align: baseline;}
+
+
+#content .container {width: 550px; margin: 0 auto;}
+
+#search {margin: 6em -2em 0 -2em;}
+#search #search_field {width: 500px;}
+
+
+#footer {position: fixed; bottom: 10px; left: 20px; right: 20px; z-index: 10;}
+#footer .container {height: 38px; opacity: .33;}
+#footer .container:hover {opacity: 1.0;}
+#footer #credits {clear: none; float: left; display: block; padding: 1em 0 0 0; margin: 1em 0 0 0; height: 13px; font-size: 1.3em; line-height: 1.0em; overflow: hidden;}
+#footer #powered {clear: none; float: right; display: block; padding: 1em 0 0 0; margin: 1em 0 0 0; height: 13px; font-size: 1.1em; line-height: 1.0em; overflow: hidden;}
+#footer #languages {clear: none; float: right;}
+#footer a {text-decoration: underline; color: #000;}
+#footer a:focus, #footer a:hover {color: #666;}

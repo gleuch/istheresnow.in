@@ -1,0 +1,16 @@
+body {max-width: 480px; margin: 0 auto;}
+
+#header {position: absolute; top: 1em; left: 1em; right: 1em;}
+#header #options {clear: none; float: right;}
+#header #flashes {padding-bottom: .6em;}
+#header #flashes .flash {text-align: center;}
+
+#content {padding: 10em 0;}
+
+#search #search_field {width: 90%; /*padding: .333em .5em .25em .5em;*/}
+
+#footer {position: fixed; bottom: 1em; left: 1em; right: 1em; color: #aaa; font-size: 1.0em;}
+#footer a {color: #aaa; text-decoration: underline;}
+#footer a:focus, #footer a:hover {color: #666;}
+#footer #credits {clear: none; float: left;}
+#footer #powered {clear: none; float: right;} 
