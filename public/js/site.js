@@ -110,6 +110,8 @@ var istheresnowin = {
       $('#map').show();
       if (localStorage) localStorage.show_map = true;
       if (!istheresnowin._map) istheresnowin.map_init();
+      google.maps.event.trigger(istheresnowin._map, 'resize');
+      istheresnowin.map_move();
     } else {  
       $('#map').hide();
       if (localStorage) localStorage.removeItem('show_map');
@@ -118,7 +120,7 @@ var istheresnowin = {
   
   map_move : function(lat, lng) {
     var geo = istheresnowin.map_coords(lat, lng);
-
+    console.log('map move')
     if (istheresnowin._map) {
       istheresnowin._map.setCenter(new google.maps.LatLng(geo.latitude, geo.longitude));
     } else {
