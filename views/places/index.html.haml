@@ -1,5 +1,12 @@
 - content_for :answer do
   = haml :'places/_answer'
 
+  %script{:type => 'text/javascript'}
+    $('#answer').hide();
+    $('#loading').show();
+
+
 - content_for :page_bottom do
-  %script{:type => 'text/javascript'} istheresnowin.locate();
+  %script{:type => 'text/javascript'}
+    istheresnowin.locate();
+    $(document).ready(function() {if (localStorage && localStorage.show_map) istheresnowin.map_toggle();});

@@ -50,11 +50,11 @@
         %aside#options
           %ul.nav
             %li#options_map
-              %a{:href => 'javascript:;', :title => 'View Map'} [m]
+              %a{:href => 'javascript:;', :title => t.template.view_map}= t.template.view_map
             %li#options_current_loc
-              %a{:href => 'javascript:;', :title => 'Current Location'} [x]
+              %a{:href => 'javascript:;', :title => t.template.current_location}= t.template.current_location
             %li#options_search
-              %a{:href => 'javascript:;', :title => 'Search'} [s]
+              %a{:href => 'javascript:;', :title => t.template.search}= t.template.search
 
     %article#content
       .container.c

@@ -13,7 +13,7 @@ helpers do
   def set_template_defaults
     @meta = {
       :description => t.template.meta.description,
-      :robots => "noindex,nofollow"
+      :robots => "index,follow"
     }
     
     @title = nil

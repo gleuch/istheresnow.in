@@ -32,22 +32,26 @@ models:
 
 # --- TEMPLATE TEXT ---------------------------------------
 template:
+  view_map:           View Map
+  current_location:   Current Location
+  search:             Search
+
   alert:
-    high_traffic:   "Due to high traffic and rate limiting, some results may be out of date."
+    high_traffic:     "Due to high traffic and rate limiting, some results may be out of date."
 
   meta:
-    author:       "IsThereSnow.In?, by Greg Leuch"
-    description:  "Is there snow in your area?"
+    author:           "IsThereSnow.In?, by Greg Leuch"
+    description:      "Is there snow in your area?"
 
   search:
-    placeholder:  "Search..."
+    placeholder:      "Search..."
 
   navigation:
-    about:      About
+    about:            About
 
   footer:
-    credits:    Built by <a href="http://gleu.ch">Greg Leuch</a> &ndash; &copy; %1
-    powered:    Using <a href="http://developer.yahoo.com/weather/">Yahoo! Weather</a> and <a href="http://code.google.com/apis/maps/index.html">Google Maps</a>.
+    credits:          Built by <a href="http://gleu.ch" rel="follow">Greg Leuch</a> &ndash; &copy; %1
+    powered:          Using <a href="http://developer.yahoo.com/weather/" rel="nofollow">Yahoo! Weather</a> and <a href="http://code.google.com/apis/maps/index.html" rel="nofollow">Google Maps</a>.
 
 
 # --- PLACES ----------------------------------------------
