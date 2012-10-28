@@ -4,7 +4,7 @@
     %meta{:charset => "utf-8"}
     %title= page_title
     %meta{:name => "description", :content => @meta[:description]}
-    %meta{:name => "author", :content => t.template.meta.author}
+    %meta{:name => "author", :content => t.template.meta[@weather_site_type].author}
     %meta{:name => "robots", :content => @meta[:robots]}
     - unless @canonical_url.blank?
       %meta{:name => 'canonical', :content => @canonical_url.gsub(/\s/m, '_')}
@@ -31,8 +31,12 @@
       - unless prod?
         var _gaq = {push:function(a) {console.log('GA: '+ a.toString());}};
 
+      - ga_id = case @weather_site_type
+        - when 'hurricane'; configatron.hurricane_ganalytics_id
+        - else; configatron.snow_ganalytics_id
+
       var _gaq = _gaq || [], _gaq_last_pageview = location.href;
-      _gaq.push(['_setAccount', '#{configatron.ganalytics_id}']);
+      _gaq.push(['_setAccount', '#{ga_id}']);
       _gaq.push(['_setDomainName', '#{request.host}']);
       _gaq.push(['_setAllowLinker', true]);
       _gaq.push(['_trackPageview']);
@@ -46,7 +50,7 @@
     %header#header
       .container.c
         %h1#logo.print
-          %a{:href => "/", :title => t.name}= t.name
+          %a{:href => "/", :title => t[@weather_site_type].name}= t[@weather_site_type].name
 
         - if flashes?
           %aside#flashes
