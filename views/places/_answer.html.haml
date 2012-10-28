@@ -3,15 +3,21 @@
 - unless @place.blank?
   %h2#place_name= @place.name
   - unless @place.weather.blank?
-    - status = t.defaults.y if @place.weather.snow?
-    - status ||= t.defaults.maybe if @place.weather.sleet?
+    - case @weather_site_type
+      - when 'hurricane'
+        - status = t.defaults.y if @place.weather.hurricane?
+        - status ||= t.defaults.n_ts if @place.weather.tropical_storm?
+      - else
+        - status = t.defaults.y if @place.weather.snow?
+        - status ||= t.defaults.maybe if @place.weather.sleet?
+
     - status ||= t.defaults.n
 
   - status ||= t.defaults.dunno
   %h1#place_answer= status
 
   %script{:type => 'text/javascript'}
-    istheresnowin.default_place(#{place_json(@place)});
+    isthereweatherin.default_place(#{place_json(@place)});
 
 - else
   %h2#place_name= t.places.unknown

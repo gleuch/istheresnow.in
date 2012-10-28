@@ -21,7 +21,7 @@ helpers do
     # Parse location information
     if json['status'] == 'OK' && !json['results'].blank?
       json['results'].each do |result|
-        puts result['formatted_address']
+        # puts result['formatted_address']
 
         opts = {:service_name => 'Google', :available => true, :active => true}
 

@@ -10,7 +10,7 @@
       %meta{:name => 'canonical', :content => @canonical_url.gsub(/\s/m, '_')}
     = yield_content(:meta) if content_for?(:meta)
 
-    %link{:rel => 'shortcut icon', :href => '/favicon.ico'}
+    %link{:rel => 'shortcut icon', :href => "#{@weather_site_type}/favicon.ico"}
 
     <!--[if lt IE 9]>
     %script{:src => "http://html5shim.googlecode.com/svn/trunk/html5.js"}
@@ -26,6 +26,8 @@
     %script{:type => "text/javascript", :src => "/js/jquery-1.7.1.min.js"}
     %script{:type => "text/javascript", :src => "/js/site.js"}
     %script{:type => "text/javascript"}
+      isthereweatherin.weather_site = '#{@weather_site_type}';
+
       - unless prod?
         var _gaq = {push:function(a) {console.log('GA: '+ a.toString());}};
 

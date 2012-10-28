@@ -14,7 +14,16 @@ get "/:q" do
 end
 
 get "/" do
-  @place = Weather.recent.focus_city.is_snowing.random.first.place rescue nil
+  obj = Weather.recent.focus_city
+
+  case @weather_site_type
+    when 'hurricane'
+      obj = obj.is_hurricane
+    else
+      obj = obj.is_snowing
+  end
+
+  @place = obj.random.first.place rescue nil
 
   respond_to do |format|
     format.html { haml :'places/index' }

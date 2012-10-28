@@ -9,7 +9,7 @@ helpers do
     uri << "&gflags=#{gflags}"
     uri << "&appid=#{configatron.yapps_id}"
 
-    puts "Yahoo!: #{uri}"
+    # puts "Yahoo!: #{uri}"
     info = Net::HTTP.get URI.parse(uri) rescue nil
     return nil if info.blank?
 
@@ -53,7 +53,7 @@ helpers do
             places << p if p.save
           end
         rescue => err
-          puts "omgwtf?: #{err}"
+          # puts "omgwtf?: #{err}"
           nil
         end
       end

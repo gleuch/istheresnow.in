@@ -1,9 +1,15 @@
-name:           "Is There Snow In...?"
-title_name:     "IsThereSnow.In"
+snow:
+  name:           "Is There Snow In...?"
+  title_name:     "IsThereSnow.In"
+
+hurricane:
+  name:           "Is There a Hurriance In...?"
+  title_name:     "IsThereAHurricane.In"
 
 defaults:
   y:              "yes"
   n:              "no"
+  n_ts:           "no (but it is a tropical storm)"
   maybe:          "maybe"
   dunno:          "dunno?"
   and:            and
@@ -41,8 +47,13 @@ template:
     high_traffic:     "Due to high traffic and rate limiting, some results may be out of date."
 
   meta:
-    author:           "IsThereSnow.In?, by Greg Leuch"
-    description:      "Is there snow in your area?"
+    snow:
+      author:           "IsThereSnow.In?, by Greg Leuch"
+      description:      "Is there snow in your area?"
+
+    hurricane:
+      author:           "IsThereAHurricane.In?, by Greg Leuch"
+      description:      "Is there a hurricane in your area?"
 
   search:
     placeholder:      "Search..."

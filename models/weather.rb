@@ -6,6 +6,7 @@ class Weather < ActiveRecord::Base
   belongs_to :place
 
   scope :is_snowing, where(:is_snow_event => true)
+  scope :is_hurricane, where(:is_hurricane_event => true)
   scope :recent, lambda { where("updated_at >= ?", (Time.now-CACHE_TIMEFRAME)) }
   scope :active, where(:active => true)
   scope :random, :order => "RAND()"
@@ -25,6 +26,8 @@ class Weather < ActiveRecord::Base
   def windy?; self.is_wind_event; end
   def storm?; self.is_storm_event; end
   def sunny?; self.is_sunny_event; end
+  def hurricane?; self.is_hurricane_event; end
+  def tropical_storm?; self.is_tropical_storm_event; end
 
 
 protected

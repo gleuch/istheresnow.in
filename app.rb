@@ -4,6 +4,7 @@ require "bundler"
 Bundler.setup
 
 require "sinatra"
+require "net/http"
 
 
 configure do
@@ -66,6 +67,7 @@ configure do
 end
 
 before do
+  set_current_site
   set_current_user_locale
   set_template_defaults
 end

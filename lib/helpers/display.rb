@@ -2,6 +2,14 @@ helpers do
 
 # --- Templates ---------------------
 
+  def set_current_site
+    if ['lh.url','isthereahurricane.in'].include?(request.host)
+      @weather_site_type = 'hurricane'
+    else
+      @weather_site_type = 'snow'
+    end
+  end
+
   def set_current_user_locale
     locale = session[:locale]
     locale ||= params[:locale] unless params[:locale].blank?
@@ -12,7 +20,7 @@ helpers do
 
   def set_template_defaults
     @meta = {
-      :description => t.template.meta.description,
+      :description => t.template.meta[@weather_site_type].description,
       :robots => "index,follow"
     }
     
@@ -23,7 +31,7 @@ helpers do
   end
 
   def page_title
-    str = [t.title_name]
+    str = [ t[@weather_site_type]['title_name'] ]
     str.unshift(@title) unless @title.blank?
     str.join(' | ')
   end
@@ -99,7 +107,7 @@ helpers do
     unless p.blank?
       obj = {:place => p.name, :url => @canonical_url, :geo => {:latitude => p.geo_latitude, :longitude => p.geo_longitude}}
       unless p.weather.blank?
-        status = {:snow => p.weather.snow?, :sleet => p.weather.sleet?, :rain => p.weather.rain?, :storm => p.weather.storm?}
+        status = {:snow => p.weather.snow?, :sleet => p.weather.sleet?, :rain => p.weather.rain?, :storm => p.weather.storm?, :hurricane => p.weather.hurricane?, :tropical_storm => p.weather.tropical_storm?}
         obj[:weather] = {:name => t.weathers.noun[p.weather.name.to_sym], :event => t.weathers.verb[p.weather.name.to_sym], :status => status}
       else
         obj[:error] = true

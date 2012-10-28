@@ -43,7 +43,7 @@ helpers do
       @place ||= lookup_place_by_place(q)
       @place ||= lookup_place_via_service(q) unless @skip_geoloc_service
 
-      puts "@place: #{@place.inspect}"
+      # puts "@place: #{@place.inspect}"
 
       # Add to place search terms
       PlaceSearch.create(:place_id => @place.id, :query => q, :active => true) unless @place.blank?
@@ -69,18 +69,18 @@ helpers do
   def lookup_place_by_place(q)
     # Lookup via geo latitude and longitude
     if q.match(GEO_REGEXP)
-      puts "Searching Place (Geo): #{q}"
+      # puts "Searching Place (Geo): #{q}"
       lat, lng = q.gsub(GEO_REGEXP, '\1'), q.gsub(GEO_REGEXP, '\3')
       place = Place.available.near(lat, lng)
 
     # Lookup via postal code
     elsif q.match(/^\d+$/)
-      puts "Searching Place (Postal Code): #{q}"
+      # puts "Searching Place (Postal Code): #{q}"
       place = Place.available.where("LOWER(postal_code)=?", q)
     
     # Lookup more complex term
     else
-      puts "Searching Place (All): #{q.underscore.humanize}"
+      # puts "Searching Place (All): #{q.underscore.humanize}"
       geo = q.split(',')
       location, region = geo.pop, geo.pop
 
@@ -92,7 +92,7 @@ helpers do
   end
   
   def lookup_place_via_service(q)
-    puts "Fetching Place: #{q}"
+    # puts "Fetching Place: #{q}"
 
     # lookup_place_via_google(q)
     lookup_place_via_yahoo(q)
